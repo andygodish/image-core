@@ -1,0 +1,39 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "GitHub Actions dependencies"
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
+      ],
+      "matchStrings": [
+        "ARG CORE_VERSION=\"(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "bitcoin/bitcoin",
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^\\.github/workflows/release\\.yaml$/"
+      ],
+      "matchStrings": [
+        "github\\.com/andygodish/upver/releases/download/v(?<currentValue>[^/]+)/upver-linux-amd64"
+      ],
+      "depNameTemplate": "andygodish/upver",
+      "datasourceTemplate": "github-releases"
+    }
+  ]
+}

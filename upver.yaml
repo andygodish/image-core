@@ -1,0 +1,12 @@
+version:
+  file: version.txt
+  pattern: '(?s)(.*)' # Matches the entire text file string
+  group: 1
+
+upstream:
+  file: Dockerfile
+  pattern: 'ARG CORE_VERSION="([^"\n]+)"'
+  group: 1
+
+changelog:
+  file: CHANGELOG.md
