@@ -1,6 +1,6 @@
 version:
   file: version.txt
-  pattern: '(?s)(.*)' # Matches the entire text file string
+  pattern: '([^[:space:]]+)'
   group: 1
 
 upstream:
