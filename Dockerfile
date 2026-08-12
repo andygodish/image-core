@@ -38,10 +38,6 @@ RUN if [ "${TARGETARCH}" = "amd64" ]; then \
 # --- Stage 2: Hardened Runtime Layer ---
 FROM debian:13.6-slim
 
-# Create a non-privileged system user/group
-RUN groupadd -g 10001 bitcoin && \
-    useradd -u 10001 -g bitcoin -m -s /bin/false bitcoin
-
 ARG CORE_VERSION
 
 # Copy only the compiled/verified binaries from stage 1
@@ -49,16 +45,12 @@ COPY --from=builder /tmp/bitcoin-${CORE_VERSION}/bin/bitcoind /usr/local/bin/bit
 COPY --from=builder /tmp/bitcoin-${CORE_VERSION}/bin/bitcoin-cli /usr/local/bin/bitcoin-cli
 
 # Copy the version file for reference
-COPY --chown=bitcoin:bitcoin version.txt /usr/local/bin/version.txt
-
-# Create standard Bitcoin home directory owned by 10001:10001
-RUN mkdir -p /home/bitcoin/.bitcoin && \
-    chown -R bitcoin:bitcoin /home/bitcoin/.bitcoin
+COPY --chown=10001:10001 version.txt /usr/local/bin/version.txt
 
 # Bake in your opinionated default bitcoin.conf
-COPY --chown=bitcoin:bitcoin bitcoin.conf /home/bitcoin/.bitcoin/bitcoin.conf
+COPY --chown=10001:10001 bitcoin.conf /home/bitcoin/.bitcoin/bitcoin.conf
 
-USER bitcoin:bitcoin
+USER 10001:10001
 
 # P2P and RPC default ports
 EXPOSE 8332 8333
