@@ -36,7 +36,7 @@ RUN if [ "${TARGETARCH}" = "amd64" ]; then \
     && tar -xzf bitcoin-${CORE_VERSION}-${ARCH}.tar.gz
 
 # --- Stage 2: Hardened Runtime Layer ---
-FROM debian:13.6-slim
+FROM debian:13.7-slim
 
 ARG CORE_VERSION
 
