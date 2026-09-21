@@ -1,5 +1,6 @@
 ## 31.1-1 - 2026-09-21
 
+- [1c41e3c](https://github.com/andygodish/image-core/commit/1c41e3c4a1c980d1e9e0c1b4451c20da053b82c2) chore(deps): update debian docker tag to v13.7
 
 ## 31.1-0 - 2026-08-12
 
