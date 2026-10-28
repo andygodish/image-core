@@ -1,5 +1,5 @@
 # Declare once globally at the very top
-ARG CORE_VERSION="31.1"
+ARG CORE_VERSION="32.1"
 
 # --- Stage 1: Build & Verify (Fast execution on Build Platform) ---
 FROM --platform=$BUILDPLATFORM debian:bookworm-slim AS builder
